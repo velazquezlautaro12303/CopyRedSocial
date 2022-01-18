@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ff893bd4b97c460ebffc05e97fb9e038" Name="Diagram1">
+        <EntityTypeShape EntityType="InstagramModel.Comment" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InstagramModel.Photo" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="InstagramModel.tLike" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="InstagramModel.tUser" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="InstagramModel.Tweet" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="InstagramModel.FK__Comment__TweetID__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="InstagramModel.FK__Comment__UserID__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="InstagramModel.FK__Photo__TweetID__2F10007B" ManuallyRouted="false" />
+        <AssociationConnector Association="InstagramModel.FK__tLike__TweetID__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="InstagramModel.FK__tLike__UserID__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="InstagramModel.FK__Tweet__UserID__2C3393D0" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="InstagramModel.Share" Width="1.5" PointX="8.25" PointY="7.25" />
+        <AssociationConnector Association="InstagramModel.FK__Share__TweetID__398D8EEE" />
+        <AssociationConnector Association="InstagramModel.FK__Share__UserID__3A81B327" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

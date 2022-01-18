@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+    <link rel="stylesheet" type="text/css" href="~/Resources/css/style.css">
+</head>
+<body>
+    <div class="tweet">
+        <header>
+            <div class="header">
+                <img id="PhotoUser" src="~/Resources/Images/alf.jpg" />
+                <div class="LabelUserTime">
+                    <p id="LabelNameUser">NameUSer</p>
+                    <p id="LabelDateTime">DateTime</p>
+                </div>
+            </div>
+            <p class="LabelDescription">Description</p>
+        </header>
+        <div style="position: relative;">
+            <div class="flecha" style="left: 0;">
+                <img src="~/Resources/Images/Left.png" class="photoFlecha" />
+            </div>
+            <div class="flecha" style="right: 0;">
+                <img src="~/Resources/Images/Right.png" class="photoFlecha" />
+            </div>
+            <img id="MainPhoto" style="width: 100%;" />
+        </div>
+        <footer>
+            <div class="OrderRowFlex space" style="margin-bottom: 10px; margin-top: 10px;">
+                <div class="OrderRowFlex">
+                    <img src="~/Resources/Images/Like.png" width="23" />
+                    <p class="LabelCountLikes">CountLikes</p>
+                </div>
+                <p class="LabelCountLikes"><u>CountCommentShare</u></p>
+            </div>
+            <div class="OrderRowFlex space">
+                <button>
+                    <img src="~/Resources/Images/Like.png" width="23" />
+                    <p>Me gusta</p>
+                </button>
+                <button>
+                    <img src="~/Resources/Images/Comment.png" width="23" />
+                    <p>Comentario</p>
+                </button>
+                <button>
+                    <img src="~/Resources/Images/Share.png" width="23" />
+                    <p>Compartir</p>
+                </button>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

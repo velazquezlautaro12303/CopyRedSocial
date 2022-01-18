@@ -1,0 +1,116 @@
+﻿@model IEnumerable<WebApplicationPagesRazorWithMVC.Models.Tweet>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>index</title>
+    <link rel="icon" href="~/Resources/Images/index.ico">
+    <link rel="stylesheet" type="text/css" href="~/Resources/css/style.css">
+</head>
+<body>
+    @foreach (var tweet in Model)
+    {
+        <div class="tweet">
+            <header>
+                <div class="header">
+                    <img class="PhotoUser" src="~/Resources/Images/alf.jpg" />
+                    <div class="LabelUserTime">
+                        <p class="LabelNameUser">@ViewBag.NameUser</p>
+                        <p class="LabelDateTime">@tweet.Date</p>
+                    </div>
+                </div>
+                <p class="LabelDescription">@tweet.Description/p>
+            </header>
+            <div style="position: relative; background-color: black">
+                <div class="flecha" style="left: 0;">
+                    <img src="~/Resources/Images/Left.png" class="photoFlecha" />
+                </div>
+                <div class="flecha" style="right: 0;" onclick="NextPhoto()">
+                    <img src="~/Resources/Images/Right.png" class="photoFlecha" />
+                </div>
+                @foreach (var path in ViewBag.MainPhoto)
+                {
+                    <center><img src="@path" class="MainPhoto" style="" /></center>
+                }
+            </div>
+            <footer>
+                <div class="OrderRowFlexSpace" style="margin-bottom: 10px; margin-top: 10px; padding-left: 5px; padding-right: 2px;">
+                    <div class="CounterLikes">
+                        <img src="~/Resources/Images/Liked.png" width="23" />
+                        <p class="LabelMeGusta">@ViewBag.CountLikes Me gusta</p>
+                    </div>
+                    <div class="FlexRowVerticalCenterHorizontalSpace">
+                        @if (ViewBag.CountComment > 999)
+                        {
+                            <p class="LabelCountLikesComment"><u>@(ViewBag.CountComment - 999) mil comentarios</u></p>
+                        }
+                        else if (ViewBag.CountComment > 0)
+                        {
+                            <p class="LabelCountLikesComment"><u>@ViewBag.CountComment comentarios</u></p>
+                        }
+                        @if (ViewBag.CountShare > 999)
+                        {
+                            <p class="LabelCountLikesComment"><u>@(ViewBag.CountShare - 999) mil veces compartido</u></p>
+                        }
+                        else if (ViewBag.CountShare > 0)
+                        {
+                            <p class="LabelCountLikesComment"><u>@ViewBag.CountShare veces compartido</u></p>
+                        }
+                    </div>
+                </div>
+                <div class="OrderRowFlexSpace">
+                    <button>
+                        <img src="~/Resources/Images/Like.png" width="23" />
+                        <p>Me gusta</p>
+                    </button>
+                    <button>
+                        <img src="~/Resources/Images/Comment.png" width="23" />
+                        <p>Comentario</p>
+                    </button>
+                    <button>
+                        <img src="~/Resources/Images/Share.png" width="23" />
+                        <p>Compartir</p>
+                    </button>
+                </div>
+            </footer>
+        </div>
+    }
+
+    <script type="text/javascript">
+
+        //const x = document.querySelectorAll("img.MainPhoto");
+        //var images = [];
+
+        //for (var j = 0; j < x.length; j++) {
+        //    var list = [];
+        //    for (var i = 0; i < x.length; i++) {
+        //        if (x[i].name == j) {
+        //            list.push(x[i]);
+        //        }
+        //    }
+        //    images.push(list);
+        //}
+
+        //for (var j = 0; j < images.length; j++) {
+        //    for (var i = 0; i < images[j].length; i++) {
+        //        if (i != 0) {
+        //            images[j][i].style.display = "none";
+        //        }
+        //    }
+        //}
+
+        //console.log(images);
+
+        //function NextPhoto() {
+
+        //}
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿@Model Persona 
+
+@{
+    ViewBag.Title = "Index";
+    var mensaje = ViewData["mensaje"];
+}
+
+<h1>@Model.Nombre</h1>
+<h2>@mensaje</h2>
+<h3>@ViewBag.mensaje</h3>
+
+@{ Html.BeginForm("Create", "Default", FormMethod.Get); }
+
+    Valor 1:
+        <input type="text" name="valor1" />
+        <br />
+    Valor 2:
+        <input type="text" name="valor2" />
+        <br />
+
+    <input type="submit" />
+
+@{ Html.EndForm();}
+

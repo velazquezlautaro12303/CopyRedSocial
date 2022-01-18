@@ -1,0 +1,484 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InstagramModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="TweetID" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="600" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="path" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TweetID" Type="int" />
+        </EntityType>
+        <EntityType Name="Share">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TweetID" Type="int" />
+          <Property Name="UserID" Type="int" />
+        </EntityType>
+        <EntityType Name="tLike">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="TweetID" Type="int" />
+        </EntityType>
+        <EntityType Name="tUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameUser" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tweet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="600" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Date" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Comment__TweetID__36B12243">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__UserID__35BCFE0A">
+          <End Role="tUser" Type="Self.tUser" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Photo__TweetID__2F10007B">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Photo">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Share__TweetID__398D8EEE">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Share" Type="Self.Share" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Share">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Share__UserID__3A81B327">
+          <End Role="tUser" Type="Self.tUser" Multiplicity="0..1" />
+          <End Role="Share" Type="Self.Share" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Share">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tLike__TweetID__32E0915F">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="tLike" Type="Self.tLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tLike">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tLike__UserID__31EC6D26">
+          <End Role="tUser" Type="Self.tUser" Multiplicity="0..1" />
+          <End Role="tLike" Type="Self.tLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tLike">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="verifyUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NameUser" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="InstagramModelStoreContainer">
+          <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Photo" EntityType="Self.Photo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Share" EntityType="Self.Share" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tLike" EntityType="Self.tLike" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tUser" EntityType="Self.tUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tweet" EntityType="Self.Tweet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comment__TweetID__36B12243" Association="Self.FK__Comment__TweetID__36B12243">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__UserID__35BCFE0A" Association="Self.FK__Comment__UserID__35BCFE0A">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Photo__TweetID__2F10007B" Association="Self.FK__Photo__TweetID__2F10007B">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Photo" EntitySet="Photo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Share__TweetID__398D8EEE" Association="Self.FK__Share__TweetID__398D8EEE">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Share" EntitySet="Share" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Share__UserID__3A81B327" Association="Self.FK__Share__UserID__3A81B327">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="Share" EntitySet="Share" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tLike__TweetID__32E0915F" Association="Self.FK__tLike__TweetID__32E0915F">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="tLike" EntitySet="tLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tLike__UserID__31EC6D26" Association="Self.FK__tLike__UserID__31EC6D26">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="tLike" EntitySet="tLike" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InstagramModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="TweetID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tweet" Relationship="Self.FK__Comment__TweetID__36B12243" FromRole="Comment" ToRole="Tweet" />
+          <NavigationProperty Name="tUser" Relationship="Self.FK__Comment__UserID__35BCFE0A" FromRole="Comment" ToRole="tUser" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="path" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TweetID" Type="Int32" />
+          <NavigationProperty Name="Tweet" Relationship="Self.FK__Photo__TweetID__2F10007B" FromRole="Photo" ToRole="Tweet" />
+        </EntityType>
+        <EntityType Name="tLike">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="TweetID" Type="Int32" />
+          <NavigationProperty Name="Tweet" Relationship="Self.FK__tLike__TweetID__32E0915F" FromRole="tLike" ToRole="Tweet" />
+          <NavigationProperty Name="tUser" Relationship="Self.FK__tLike__UserID__31EC6D26" FromRole="tLike" ToRole="tUser" />
+        </EntityType>
+        <EntityType Name="tUser">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameUser" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__UserID__35BCFE0A" FromRole="tUser" ToRole="Comment" />
+          <NavigationProperty Name="tLike" Relationship="Self.FK__tLike__UserID__31EC6D26" FromRole="tUser" ToRole="tLike" />
+          <NavigationProperty Name="Tweet" Relationship="Self.FK__Tweet__UserID__2C3393D0" FromRole="tUser" ToRole="Tweet" />
+          <NavigationProperty Name="Share" Relationship="InstagramModel.FK__Share__UserID__3A81B327" FromRole="tUser" ToRole="Share" />
+        </EntityType>
+        <EntityType Name="Tweet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="600" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__TweetID__36B12243" FromRole="Tweet" ToRole="Comment" />
+          <NavigationProperty Name="Photo" Relationship="Self.FK__Photo__TweetID__2F10007B" FromRole="Tweet" ToRole="Photo" />
+          <NavigationProperty Name="tLike" Relationship="Self.FK__tLike__TweetID__32E0915F" FromRole="Tweet" ToRole="tLike" />
+          <NavigationProperty Name="tUser" Relationship="Self.FK__Tweet__UserID__2C3393D0" FromRole="Tweet" ToRole="tUser" />
+          <NavigationProperty Name="Share" Relationship="InstagramModel.FK__Share__TweetID__398D8EEE" FromRole="Tweet" ToRole="Share" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <Association Name="FK__Comment__TweetID__36B12243">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__UserID__35BCFE0A">
+          <End Role="tUser" Type="Self.tUser" Multiplicity="0..1" />
+          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Comment">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Photo__TweetID__2F10007B">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="Photo" Type="Self.Photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Photo">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tLike__TweetID__32E0915F">
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="0..1" />
+          <End Role="tLike" Type="Self.tLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tLike">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tLike__UserID__31EC6D26">
+          <End Role="tUser" Type="Self.tUser" Multiplicity="0..1" />
+          <End Role="tLike" Type="Self.tLike" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tLike">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tweet__UserID__2C3393D0">
+          <End Role="tUser" Type="Self.tUser" Multiplicity="0..1" />
+          <End Role="Tweet" Type="Self.Tweet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tweet">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="InstagramEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comment" EntityType="Self.Comment" />
+          <EntitySet Name="Photo" EntityType="Self.Photo" />
+          <EntitySet Name="tLike" EntityType="Self.tLike" />
+          <EntitySet Name="tUser" EntityType="Self.tUser" />
+          <EntitySet Name="Tweet" EntityType="Self.Tweet" />
+          <AssociationSet Name="FK__Comment__TweetID__36B12243" Association="Self.FK__Comment__TweetID__36B12243">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__UserID__35BCFE0A" Association="Self.FK__Comment__UserID__35BCFE0A">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Photo__TweetID__2F10007B" Association="Self.FK__Photo__TweetID__2F10007B">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Photo" EntitySet="Photo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tLike__TweetID__32E0915F" Association="Self.FK__tLike__TweetID__32E0915F">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="tLike" EntitySet="tLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tLike__UserID__31EC6D26" Association="Self.FK__tLike__UserID__31EC6D26">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="tLike" EntitySet="tLike" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tweet__UserID__2C3393D0" Association="Self.FK__Tweet__UserID__2C3393D0">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="Tweet" EntitySet="Tweet" />
+          </AssociationSet>
+          <EntitySet Name="Share" EntityType="InstagramModel.Share" />
+          <AssociationSet Name="FK__Share__TweetID__398D8EEE" Association="InstagramModel.FK__Share__TweetID__398D8EEE">
+            <End Role="Tweet" EntitySet="Tweet" />
+            <End Role="Share" EntitySet="Share" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Share__UserID__3A81B327" Association="InstagramModel.FK__Share__UserID__3A81B327">
+            <End Role="tUser" EntitySet="tUser" />
+            <End Role="Share" EntitySet="Share" />
+          </AssociationSet>
+          <FunctionImport Name="verifyUser" ReturnType="Collection(InstagramModel.verifyUser_Result)">
+            <Parameter Name="NameUser" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Share">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TweetID" Type="Int32" />
+          <Property Name="UserID" Type="Int32" />
+          <NavigationProperty Name="Tweet" Relationship="InstagramModel.FK__Share__TweetID__398D8EEE" FromRole="Share" ToRole="Tweet" />
+          <NavigationProperty Name="tUser" Relationship="InstagramModel.FK__Share__UserID__3A81B327" FromRole="Share" ToRole="tUser" />
+        </EntityType>
+        <Association Name="FK__Share__TweetID__398D8EEE">
+          <End Type="InstagramModel.Tweet" Role="Tweet" Multiplicity="0..1" />
+          <End Type="InstagramModel.Share" Role="Share" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tweet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Share">
+              <PropertyRef Name="TweetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Share__UserID__3A81B327">
+          <End Type="InstagramModel.tUser" Role="tUser" Multiplicity="0..1" />
+          <End Type="InstagramModel.Share" Role="Share" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tUser">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Share">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="verifyUser_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NameUser" Nullable="false" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="InstagramModelStoreContainer" CdmEntityContainer="InstagramEntities">
+          <EntitySetMapping Name="Comment">
+            <EntityTypeMapping TypeName="InstagramModel.Comment">
+              <MappingFragment StoreEntitySet="Comment">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Photo">
+            <EntityTypeMapping TypeName="InstagramModel.Photo">
+              <MappingFragment StoreEntitySet="Photo">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tLike">
+            <EntityTypeMapping TypeName="InstagramModel.tLike">
+              <MappingFragment StoreEntitySet="tLike">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tUser">
+            <EntityTypeMapping TypeName="InstagramModel.tUser">
+              <MappingFragment StoreEntitySet="tUser">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameUser" ColumnName="NameUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tweet">
+            <EntityTypeMapping TypeName="InstagramModel.Tweet">
+              <MappingFragment StoreEntitySet="Tweet">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Share">
+            <EntityTypeMapping TypeName="InstagramModel.Share">
+              <MappingFragment StoreEntitySet="Share">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TweetID" ColumnName="TweetID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="verifyUser" FunctionName="InstagramModel.Store.verifyUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="InstagramModel.verifyUser_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameUser" ColumnName="NameUser" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
